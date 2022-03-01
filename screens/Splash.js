@@ -3,13 +3,14 @@ import { Text, View } from 'react-native'
 import App from '../App'
 import AnimatedSplash from "react-native-animated-splash-screen";
 import TestScreen from './TestScreen';
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 export default class Splash extends Component {
     state = {
         isLoaded: false
     }
 
     componentDidMount() {
+
         setTimeout(() => {
             this.setState({ isLoaded: true })
         }, 2000)
@@ -25,8 +26,8 @@ export default class Splash extends Component {
                 logoHeight={100}
                 logoWidth={100}
             >
-                {/* <App /> */}
-                <TestScreen />
+                <App />
+                {/* <TestScreen /> */}
             </AnimatedSplash>
         )
     }

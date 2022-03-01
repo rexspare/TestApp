@@ -14,6 +14,7 @@ export default class AuthStack extends Component {
         return (
             <Stack.Navigator>
                 {/* <Stack.Screen name='Entry' component={Entry} /> */}
+
                 <Stack.Screen name='SignUp' component={SignUp} />
                 <Stack.Screen name='SignIn' component={SignIn} />
                 <Stack.Screen name='ForgotPassword' component={ForgotPassword} />

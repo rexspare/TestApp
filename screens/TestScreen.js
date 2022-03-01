@@ -57,7 +57,7 @@ export default class TestScreen extends Component {
 
 
     render() {
-        const { email } = this.state;
+        const { email, password } = this.state;
         return (
             <View>
                 <Form
@@ -78,7 +78,7 @@ export default class TestScreen extends Component {
                     {this.state.pass_Number ? <Text>Number OK</Text> : null}
                     <Button
                         title="Submit"
-                        onPress={this.handleSubmit}
+                        onPress={() => this.props.loginF(email, password)}
                     />
                 </Form>
 
