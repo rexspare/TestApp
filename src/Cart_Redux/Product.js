@@ -10,10 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AddCart, DelCart } from '../redux/action'
 
 export default function Product(props) {
+    const state = useSelector((state) => state.handleCart)
+
     const navigation = useNavigation();
     const [product, setProduct] = useState({})
     const [stem, setStem] = useState(0)
     const [productLoading, setProductLoading] = useState(true)
+    const [qty, setQty] = useState(0)
     const { id } = props.route.params
     const dispatch = useDispatch();
 
@@ -32,16 +35,35 @@ export default function Product(props) {
         }
     }
 
+    const getItemNumber = async () => {
+        if (productLoading == false) {
+            try {
+                const tot = await state.find((x) => x.id === id)
+                if (tot != null || tot != undefined) {
+                    setQty(tot.qty)
+                } else {
+                    setQty(0)
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
     const delProduct = (product) => {
         if (productLoading == false) {
-            dispatch(DelCart(product))
+            if (qty != 0) {
+                dispatch(DelCart(product))
+            }
         }
     }
 
     useEffect(() => {
         fetchProducts()
+        getItemNumber()
         // console.log(product.rating.rate)
-    }, []);
+    });
 
     return (
         <View style={{ flex: 1 }}>
@@ -66,7 +88,7 @@ export default function Product(props) {
 
                         <View style={CartStyles.button}>
                             <Text style={{ fontSize: 22 }}>{
-                                stem
+                                qty
                             }</Text>
                         </View>
 
